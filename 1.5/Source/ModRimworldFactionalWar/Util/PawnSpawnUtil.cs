@@ -10,6 +10,7 @@
 using System.Collections.Generic;
 using RimWorld;
 using Verse;
+using Verse.Noise;
 
 namespace SR.ModRimWorld.FactionalWar
 {
@@ -30,6 +31,18 @@ namespace SR.ModRimWorld.FactionalWar
             {
                 var loc = CellFinder.RandomClosewalkCellNear(stageLoc, map, radius);
                 GenSpawn.Spawn(pawn, loc, map, spawnRotation);
+            }
+        }
+
+        public static void SpawnPawnsFromRandomEdgeCell(IReadOnlyList<Pawn> pawns, Map map, int radius, out IntVec3 loc)
+        {
+            var stageLoc = CellFinder.RandomEdgeCell(map);
+            var spawnRotation = Rot4.FromAngleFlat((map.Center - stageLoc).AngleFlat);
+
+            loc = CellFinder.RandomClosewalkCellNear(stageLoc, map, radius);
+            foreach (Pawn incidentPawn in pawns)
+            {
+                GenSpawn.Spawn(incidentPawn, loc, map, spawnRotation);
             }
         }
     }

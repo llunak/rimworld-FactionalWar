@@ -12,8 +12,10 @@ using System.Linq;
 using JetBrains.Annotations;
 using RimWorld;
 using RimWorld.Planet;
+using UnityEngine;
 using Verse;
 using Verse.AI.Group;
+using Verse.Noise;
 
 namespace SR.ModRimWorld.FactionalWar
 {
@@ -69,7 +71,16 @@ namespace SR.ModRimWorld.FactionalWar
             var pawnList2 = PawnGroupMakerUtility.GeneratePawns(pawnGroupMakerParms2);
             //边缘入场
             PawnSpawnUtil.SpawnPawns(pawnList1, incidentParms1, Map, Radius);
+            if(incidentParms1.spawnCenter == IntVec3.Invalid) //入场失败后的B方案，不找围城点而直接随机边缘入场
+            {
+                PawnSpawnUtil.SpawnPawnsFromRandomEdgeCell(pawnList1, Map, Radius, out incidentParms1.spawnCenter);
+            }
             PawnSpawnUtil.SpawnPawns(pawnList2, incidentParms2, Map, Radius);
+            if (incidentParms2.spawnCenter == IntVec3.Invalid) //入场失败后的B方案，不找围城点而直接随机边缘入场
+            {
+                PawnSpawnUtil.SpawnPawnsFromRandomEdgeCell(pawnList2, Map, Radius, out incidentParms2.spawnCenter);
+            }
+
             //设置集群AI
             ResolveLordJob(points, incidentParms1.spawnCenter, pawnList1, faction1, faction2);
             ResolveLordJob(points, incidentParms2.spawnCenter, pawnList2, faction2, faction1);
