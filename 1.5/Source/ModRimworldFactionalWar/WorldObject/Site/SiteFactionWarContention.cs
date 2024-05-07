@@ -70,6 +70,7 @@ namespace SR.ModRimWorld.FactionalWar
                 {points = 2 * _factionPoints.RandomInRange, faction = faction2, target = Map};
             var pawnGroupMakerParms2 =
                 IncidentParmsUtility.GetDefaultPawnGroupMakerParms(PawnGroupKindDefOf.Combat, incidentParms2);
+
             var pawnList2 = PawnGroupMakerUtility.GeneratePawns(pawnGroupMakerParms2);
             PawnSpawnUtil.SpawnPawns(pawnList2, incidentParms2, Map, Radius);
             ResolveLordJob(pawnList2, faction2);

@@ -18,10 +18,11 @@ namespace SR.ModRimWorld.FactionalWar
     {
         public static void SpawnPawns(IReadOnlyList<Pawn> pawns, IncidentParms incidentParms, Map map, int radius)
         {
-            if (!RCellFinder.TryFindRandomPawnEntryCell(out incidentParms.spawnCenter, map,
-                CellFinder.EdgeRoadChance_Hostile))
+            if (!RCellFinder.TryFindRandomPawnEntryCell(out incidentParms.spawnCenter, map, CellFinder.EdgeRoadChance_Hostile))
             {
-                return;
+                //B方案：基准点为任意地图边缘点
+                incidentParms.spawnCenter = CellFinder.RandomEdgeCell(map);
+                //return;
             }
 
             var stageLoc = RCellFinder.FindSiegePositionFrom(
