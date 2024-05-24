@@ -11,8 +11,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using HarmonyLib;
 using JetBrains.Annotations;
 using RimWorld;
+using SR.ModRimWorld.FactionalWar.Util;
 using Verse;
 
 namespace SR.ModRimWorld.FactionalWar
@@ -34,6 +36,12 @@ namespace SR.ModRimWorld.FactionalWar
             if (!(parms.target is Map map))
             {
                 Log.Error("[SR.ModRimWorld.FactionalWar]target must be a map.");
+                return false;
+            }
+
+            if(HarmonyUtil.IsSOS2SpaceMap(map))
+            {
+                Log.Error("[SR.ModRimWorld.FactionalWar]target must not be an SOS2 space map.");
                 return false;
             }
 
@@ -298,6 +306,16 @@ namespace SR.ModRimWorld.FactionalWar
             {
                 Log.Error("[SR.ModRimWorld.FactionalWar]target must be a map");
                 return;
+            }
+
+            if(map == null || HarmonyUtil.IsSOS2SpaceMap(map))
+            {
+                //如果是SOS2的太空地图，则尝试一次获取一个玩家财富最高的非太空地图，并在该地图上继续本事件。
+                Map playerNonSOS2MainColonyMap = HarmonyUtil.GetPlayerMainColonyMapSOS2Excluded();
+                if(playerNonSOS2MainColonyMap != null)
+                {
+                    map = playerNonSOS2MainColonyMap;
+                }
             }
 
             var points = parms.points; //袭击点数
