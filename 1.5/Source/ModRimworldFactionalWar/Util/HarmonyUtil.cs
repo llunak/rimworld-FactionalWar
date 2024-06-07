@@ -19,6 +19,10 @@ namespace SR.ModRimWorld.FactionalWar.Util
             {
                 return true;
             }
+            else if (map.Biome.defName.Contains("OuterSpace"))
+            {
+                return true;
+            }
             return false;
         }
 
