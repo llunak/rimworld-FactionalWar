@@ -189,7 +189,7 @@ namespace SR.ModRimWorld.FactionalWar
         /// <returns></returns>
         protected override LetterDef GetLetterDef()
         {
-            return LetterDefOf.ThreatBig;
+            return LetterDefOf.ThreatSmall;
         }
 
         /// <summary>
