@@ -56,6 +56,7 @@ namespace SR.ModRimWorld.FactionalWar
             var transition = new Transition(lordToilStage, stateGraphAssaultFactionFirst.StartingToil);
             transition.AddTrigger(new Trigger_TicksPassed(TickLimit));
             transition.AddTrigger(new Trigger_FractionPawnsLost(0.3f));
+            transition.AddTrigger(new Trigger_PawnHarmed(1f, requireInstigatorWithFaction: true, targetFaction));
             transition.AddPreAction(new TransitionAction_Message(
                 "SrFactionAssaultBegin".Translate(faction.def.pawnsPlural.CapitalizeFirst(),
                     faction.Name, targetFaction.Name), MessageTypeDefOf.ThreatBig, $"xxx-{_raidSeed}"));
