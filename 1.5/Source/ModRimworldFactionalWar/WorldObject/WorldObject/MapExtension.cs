@@ -6,6 +6,7 @@
 //      /  \\        @Modified   2021-07-06 23:58:41
 //    *(__\_\        @Copyright  Copyright (c) 2021, Shadowrabbit
 // ******************************************************************
+// Modified by llunak, l.lunak@centrum.cz .
 
 using System.Linq;
 using RimWorld;

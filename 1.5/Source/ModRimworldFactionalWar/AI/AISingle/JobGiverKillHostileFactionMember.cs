@@ -6,6 +6,7 @@
 //      /  \\        @Modified   2021-06-16 12:55:07
 //    *(__\_\        @Copyright  Copyright (c) 2021, Shadowrabbit
 // ******************************************************************
+// Modified by llunak, l.lunak@centrum.cz .
 
 using JetBrains.Annotations;
 using RimWorld;

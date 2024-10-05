@@ -6,6 +6,7 @@
 //      /  \\        @Modified   2021-06-26 20:51:06
 //    *(__\_\        @Copyright  Copyright (c) 2021, Shadowrabbit
 // ******************************************************************
+// Modified by llunak, l.lunak@centrum.cz .
 
 using Verse;
 using Verse.AI;

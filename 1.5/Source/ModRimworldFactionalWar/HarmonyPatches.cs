@@ -1,4 +1,6 @@
-﻿using HarmonyLib;
+// Modified by llunak, l.lunak@centrum.cz .
+
+using HarmonyLib;
 using Verse;
 
 namespace SR.ModRimWorld.FactionalWar
