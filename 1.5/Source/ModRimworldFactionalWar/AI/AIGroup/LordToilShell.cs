@@ -37,7 +37,7 @@ namespace SR.ModRimWorld.FactionalWar
             {
                 toilDataSiege.blueprints.Add(placeBlueprint);
                 //当前蓝图消耗的材料和数量
-                foreach (var thingDefCountClass in placeBlueprint.MaterialsNeeded())
+                foreach (var thingDefCountClass in placeBlueprint.TotalMaterialCost())
                 {
                     var cost = thingDefCountClass;
                     //列表中包含当前材料
