@@ -27,6 +27,11 @@ namespace SR.ModRimWorld.FactionalWar
         private Faction _faction2;
         private const int MaxRaidPoints = 5000; //最大袭击点数
 
+        static IncidentWorkerFactionWar()
+        {
+            HideRaidStrategy.RegisterRaidLikeEvent( typeof(IncidentWorkerFactionWar));
+        }
+
         /// <summary>
         /// 是否可以生成事件
         /// </summary>
@@ -257,6 +262,13 @@ namespace SR.ModRimWorld.FactionalWar
         /// <param name="pawns2"></param>
         private void SendLetter(IncidentParms parms1, List<Pawn> pawns1, IncidentParms parms2, List<Pawn> pawns2)
         {
+            // If at least one faction is hostile, mask the event.
+            if( HideRaidStrategy.Enabled && ( parms1.faction.HostileTo(Faction.OfPlayer) || parms2.faction.HostileTo(Faction.OfPlayer)))
+            {
+                SendHideRaidStrategyLetter( parms1, pawns1 );
+                SendHideRaidStrategyLetter( parms2, pawns2 );
+                return;
+            }
             TaggedString baseLetterLabel = GetLetterLabel(parms1);
             TaggedString baseLetterText = GetLetterText(parms1, pawns1, parms2, pawns2);
             var allfactionPawnList = new List<Pawn>();
@@ -290,6 +302,29 @@ namespace SR.ModRimWorld.FactionalWar
             sb.Append("\n");
             sb.Append(GetLetterText(parms2, pawns2));
             return sb.ToString();
+        }
+
+        private void SendHideRaidStrategyLetter(IncidentParms parms, List<Pawn> pawns)
+        {
+            if( parms.faction.HostileTo(Faction.OfPlayer))
+            {
+                parms.raidArrivalMode = null; // Replace the faction-1-and-faction-2 have arrived text.
+                HideRaidStrategy.SendLetter(this, parms, pawns);
+                return;
+            }
+            // Non-hostile faction, notify about it as if it were IncidentWorker_TravelerGroup.
+            string text;
+            if (pawns.Count == 1)
+            {
+                text = "SingleTravelerPassing".Translate(pawns[0].story.Title, parms.faction.Name, pawns[0].Name.ToStringFull, pawns[0].Named("PAWN"));
+                text = text.AdjustedFor(pawns[0]);
+            }
+            else
+                text = "GroupTravelersPassing".Translate(parms.faction.Name);
+            Messages.Message(text, pawns[0], MessageTypeDefOf.NeutralEvent);
+            PawnRelationUtility.Notify_PawnsSeenByPlayer_Letter_Send(pawns,
+                "LetterRelatedPawnsNeutralGroup".Translate(Faction.OfPlayer.def.pawnsPlural), LetterDefOf.NeutralEvent,
+                informEvenIfSeenBefore: true);
         }
 
         /// <summary>
