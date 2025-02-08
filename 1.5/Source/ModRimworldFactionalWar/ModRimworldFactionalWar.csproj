@@ -2,7 +2,7 @@
   <PropertyGroup>
     <OutputPath>..\..\Assemblies</OutputPath>
     <TargetFramework>net472</TargetFramework>
-    <AssemblyTitle>ModRimWorldFactionalWar</AssemblyTitle>
+    <AssemblyTitle>ModRimworldFactionalWar</AssemblyTitle>
     <AssemblyVersion>2024.1005.1</AssemblyVersion>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
