@@ -45,7 +45,7 @@ namespace SR.ModRimWorld.FactionalWar
             if (!pawn.CanReach(intVec3, PathEndMode.OnCell, Danger.Deadly,
                 mode: TraverseMode.PassAllDestroyableThings))
                 return null;
-            using (var path = pawn.Map.pathFinder.FindPath(pawn.Position, intVec3,
+            using (var path = pawn.Map.pathFinder.FindPathNow(pawn.Position, intVec3,
                 TraverseParms.For(pawn, mode: TraverseMode.PassAllDestroyableThings)))
             {
                 var blocker = path.FirstBlockingBuilding(out var cellBefore, pawn);

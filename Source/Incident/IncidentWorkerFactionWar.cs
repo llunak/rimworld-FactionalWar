@@ -52,7 +52,7 @@ namespace SR.ModRimWorld.FactionalWar
             }
 
             //候选派系列表
-            var candidateFactionList = CandidateFactions(map).ToList();
+            var candidateFactionList = CandidateFactions(parms).ToList();
             //需要存在两个互相敌对的派系
             return (from faction in candidateFactionList
                 from anotherFaction in candidateFactionList
@@ -67,9 +67,9 @@ namespace SR.ModRimWorld.FactionalWar
         /// <param name="map">地图</param>
         /// <param name="desperate">绝望难度</param>
         /// <returns></returns>
-        protected override bool FactionCanBeGroupSource(Faction f, Map map, bool desperate = false)
+        public override bool FactionCanBeGroupSource(Faction f, IncidentParms parms, bool desperate = false)
         {
-            return base.FactionCanBeGroupSource(f, map, desperate) &&
+            return base.FactionCanBeGroupSource(f, parms, desperate) &&
                    (desperate || GenDate.DaysPassed >= f.def.earliestRaidDays);
         }
 
@@ -121,7 +121,7 @@ namespace SR.ModRimWorld.FactionalWar
             var raidLootPoints = parms.points / 10;
             //根据策略再次调整袭击点数
             parms.points = AdjustedRaidPoints(parms.points, parms.raidArrivalMode,
-                parms.raidStrategy, parms.faction, combat);
+                parms.raidStrategy, parms.faction, combat, parms.target);
             parms2.points = parms.points;
             //生成派系部队
             var pawnListFaction1 = ResolvePawnList(parms);
@@ -356,7 +356,7 @@ namespace SR.ModRimWorld.FactionalWar
 
             var points = parms.points; //袭击点数
             //全部派系
-            var candidateFactionList = CandidateFactions(map).ToList();
+            var candidateFactionList = CandidateFactions(parms).ToList();
             FactionUtil.GetHostileFactionPair(out faction1, out faction2, points, PawnGroupKindDefOf.Combat,
                 candidateFactionList);
         }
