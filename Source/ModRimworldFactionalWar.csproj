@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <OutputPath>..\..\Assemblies</OutputPath>
+    <OutputPath>..\Assemblies</OutputPath>
     <TargetFramework>net472</TargetFramework>
     <AssemblyTitle>ModRimworldFactionalWar</AssemblyTitle>
     <AssemblyVersion>2025.0108.1</AssemblyVersion>
