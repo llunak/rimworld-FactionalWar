@@ -24,6 +24,9 @@ namespace SR.ModRimWorld.FactionalWar
 
         protected override Job TryGiveJob(Pawn pawn)
         {
+            if( !pawn.RaceProps.Humanlike )
+                return null;
+
             //需要找到最合适的逃生出口
             if (!RCellFinder.TryFindBestExitSpot(pawn, out var spot))
             {
