@@ -27,8 +27,7 @@ namespace SR.ModRimWorld.FactionalWar
             //全局缓存的地图
             var map = BaseGen.globalSettings.map;
             //解决方案中的派系 或者随机一个敌对派系
-            var faction = rp.faction ??
-                          Find.FactionManager.RandomEnemyFaction(false, false, false, TechLevel.Industrial);
+            var faction = rp.faction ?? FactionUtil.RandomTempCampFaction();
             //边缘防卫宽度是否有值
             var dist = 0;
             if (rp.edgeDefenseWidth.HasValue)

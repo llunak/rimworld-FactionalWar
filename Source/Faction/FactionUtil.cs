@@ -63,5 +63,10 @@ namespace SR.ModRimWorld.FactionalWar
                 }
             }
         }
+
+        public static Faction RandomTempCampFaction()
+        {
+            return Find.FactionManager.RandomRaidableEnemyFaction(false, false, false);
+        }
     }
 }

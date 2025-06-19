@@ -28,7 +28,7 @@ namespace SR.ModRimWorld.FactionalWar
             //找世界坐标对应的id
             TileFinder.TryFindNewSiteTile(out var tileId, MinDist, MaxDist);
             //生成默认部分场地参数
-            SiteMakerHelper.GenerateDefaultParams(parms.points, tileId, Find.FactionManager.RandomEnemyFaction(), sitePartList,
+            SiteMakerHelper.GenerateDefaultParams(parms.points, tileId, FactionUtil.RandomTempCampFaction(), sitePartList,
                 out var sitePartDefsWithParams);
             //场地
             var site = WorldObjectMaker.MakeWorldObject(WorldObjectDefOf.SrSiteFactionWarTempCamp);
@@ -39,7 +39,7 @@ namespace SR.ModRimWorld.FactionalWar
             }
             siteFactionWarTempCamp.Tile = tileId;
             siteFactionWarTempCamp.factionMustRemainHostile = false;
-            siteFactionWarTempCamp.SetFaction(Find.FactionManager.RandomEnemyFaction());
+            siteFactionWarTempCamp.SetFaction(FactionUtil.RandomTempCampFaction());
             if (sitePartDefsWithParams != null)
             {
                 foreach (var sitePart in sitePartDefsWithParams)

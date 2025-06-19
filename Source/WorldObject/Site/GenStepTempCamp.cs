@@ -44,7 +44,7 @@ namespace SR.ModRimWorld.FactionalWar
 
             //派系
             var faction = map.ParentFaction == null || map.ParentFaction == Faction.OfPlayer
-                ? Find.FactionManager.RandomEnemyFaction()
+                ? FactionUtil.RandomTempCampFaction()
                 : map.ParentFaction;
             var resolveParams = new ResolveParams
             {
