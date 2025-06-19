@@ -44,6 +44,9 @@ namespace SR.ModRimWorld.FactionalWar
                 return false;
             }
 
+            if( faction.Hidden )
+                return false;
+
             //派系没有角色组制作器
             if (faction.def.pawnGroupMakers == null)
             {
