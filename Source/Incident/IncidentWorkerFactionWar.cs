@@ -134,7 +134,8 @@ namespace SR.ModRimWorld.FactionalWar
             //根据分组生成集群AI
             if (!(parms.raidStrategy.Worker is RaidStrategyWorkerFactionFirst raidStrategyWorkerFactionFirst))
             {
-                Log.Error("[SR.ModRimWorld.FactionalWar]strategy must be RaidStrategyWorkerFactionFirst");
+                Log.Error("[SR.ModRimWorld.FactionalWar]strategy must be RaidStrategyWorkerFactionFirst, but is '"
+                    + parms.raidStrategy.Worker + "'");
                 return false;
             }
 
