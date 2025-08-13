@@ -102,6 +102,16 @@ namespace SR.ModRimWorld.FactionalWar
             //解决到达方式
             ResolveRaidArriveMode(parms);
             ResolveRaidArriveMode(parms2);
+            if( !parms.raidArrivalMode.Worker.CanUseWith(parms))
+            {
+                Log.Warning($"[SR.ModRimWorld.FactionalWar]raid arrival mode is not usable: {parms}");
+                return false;
+            }
+            if( !parms2.raidArrivalMode.Worker.CanUseWith(parms2))
+            {
+                Log.Warning($"[SR.ModRimWorld.FactionalWar]raid arrival mode is not usable: {parms2}");
+                return false;
+            }
             //尝试生成威胁（参数）
             parms.raidStrategy.Worker.TryGenerateThreats(parms);
             parms2.raidStrategy.Worker.TryGenerateThreats(parms2);
