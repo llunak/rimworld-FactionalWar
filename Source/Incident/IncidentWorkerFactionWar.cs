@@ -15,6 +15,7 @@ using System.Text;
 using HarmonyLib;
 using JetBrains.Annotations;
 using RimWorld;
+using RimWorld.Planet;
 using SR.ModRimWorld.FactionalWar.Util;
 using Verse;
 
@@ -125,7 +126,18 @@ namespace SR.ModRimWorld.FactionalWar
             parms2.points = parms.points;
             //生成派系部队
             var pawnListFaction1 = ResolvePawnList(parms);
+            if( !pawnListFaction1.Any())
+                return false;
             var pawnListFaction2 = ResolvePawnList(parms2);
+            if( !pawnListFaction2.Any())
+            {
+                foreach( Pawn pawn in pawnListFaction1 )
+                {
+                    pawn.DeSpawn();
+                    Find.WorldPawns.PassToWorld(pawn);
+                }
+                return false;
+            }
             //设置角色携带战利品
             GenerateRaidLoot(parms, raidLootPoints, pawnListFaction1);
             GenerateRaidLoot(parms, raidLootPoints, pawnListFaction2);
