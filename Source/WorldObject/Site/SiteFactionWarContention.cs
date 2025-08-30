@@ -46,8 +46,14 @@ namespace SR.ModRimWorld.FactionalWar
         /// </summary>
         public override void PostMapGenerate()
         {
-            bool Validator(Faction faction) =>
-                (faction.def.techLevel >= TechLevel.Industrial && faction.HostileTo(Faction.OfPlayer));
+            bool Validator(Faction faction)
+            {
+                if(faction.def.techLevel < TechLevel.Industrial || !faction.HostileTo(Faction.OfPlayer))
+                    return false;
+                if(!FactionUtil.IsUsable(faction, Map))
+                    return false;
+                return true;
+            };
 
             //生成两个相互敌对的派系 设置集群AI互相攻击并争夺资源
             FactionUtil.GetHostileFactionPair(out var faction1, out var faction2, _factionPoints.min,

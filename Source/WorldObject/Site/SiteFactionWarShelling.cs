@@ -52,7 +52,16 @@ namespace SR.ModRimWorld.FactionalWar
             var points = ThreatPoints.RandomInRange;
 
             //找到两个互相敌对的派系
-            bool Validator(Faction faction) => (faction.def.techLevel >= TechLevel.Industrial);
+            bool Validator(Faction faction)
+            {
+                if(faction.def.techLevel < TechLevel.Industrial)
+                    return false;
+                if(!FactionUtil.IsUsable(faction, Map))
+                    return false;
+                return true;
+            };
+
+
             FactionUtil.GetHostileFactionPair(out var faction1, out var faction2, points,
                 PawnGroupKindDefOf.Combat, Find.FactionManager.AllFactionsVisible.ToList(), Validator);
             //找不到

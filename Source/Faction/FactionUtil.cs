@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
 using Verse;
+using SR.ModRimWorld.FactionalWar.Util;
 
 namespace SR.ModRimWorld.FactionalWar
 {
@@ -67,6 +68,24 @@ namespace SR.ModRimWorld.FactionalWar
         public static Faction RandomTempCampFaction()
         {
             return Find.FactionManager.RandomRaidableEnemyFaction(false, false, false);
+        }
+
+        public static bool IsUsable(Faction faction, IncidentParms parms)
+        {
+            // From IncidentWorker_Raid.TryResolveRaidArriveMode().
+            // Arrival mode is hardcoded to be SrTwoFactionsEdgeWalkIn for this mod.
+            IncidentParms factionParms = parms.ShallowCopy();
+            factionParms.faction = faction;
+            return DefsOf.SrTwoFactionsEdgeWalkIn.Worker.CanUseWith(factionParms);
+        }
+
+        public static bool IsUsable(Faction faction, Map map)
+        {
+            IncidentParms parms = new IncidentParms();
+            parms.faction = faction;
+            parms.target = map;
+            parms.raidStrategy = DefsOf.SrFactionFirst; // Hardcoded for this mod.
+            return IsUsable(faction, parms);
         }
     }
 }

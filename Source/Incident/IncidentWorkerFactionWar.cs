@@ -57,7 +57,7 @@ namespace SR.ModRimWorld.FactionalWar
             //需要存在两个互相敌对的派系
             return (from faction in candidateFactionList
                 from anotherFaction in candidateFactionList
-                where faction.HostileTo(anotherFaction)
+                where faction.HostileTo(anotherFaction) && FactionUtil.IsUsable(faction, parms) && FactionUtil.IsUsable(anotherFaction, parms)
                 select faction).Any();
         }
 
@@ -380,8 +380,9 @@ namespace SR.ModRimWorld.FactionalWar
             var points = parms.points; //袭击点数
             //全部派系
             var candidateFactionList = CandidateFactions(parms).ToList();
+            bool validator(Faction faction) => FactionUtil.IsUsable(faction, parms);
             FactionUtil.GetHostileFactionPair(out faction1, out faction2, points, PawnGroupKindDefOf.Combat,
-                candidateFactionList);
+                candidateFactionList, validator);
         }
 
         /// <summary>

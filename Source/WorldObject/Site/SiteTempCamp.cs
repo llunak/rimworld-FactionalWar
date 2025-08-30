@@ -56,7 +56,14 @@ namespace SR.ModRimWorld.FactionalWar
             var points = ThreatPoints.RandomInRange;
 
             //创建袭击者
-            bool Validator(Faction faction) => (faction.IsFactionEffective(points, PawnGroupKindDefOf.Combat));
+            bool Validator(Faction faction)
+            {
+                if(!faction.IsFactionEffective(points, PawnGroupKindDefOf.Combat))
+                    return false;
+                if(!FactionUtil.IsUsable(faction, Map))
+                    return false;
+                return true;
+            };
             var raidFaction = Faction.FindHostileFaction(Validator);
             var incidentParms = new IncidentParms {points = points, faction = raidFaction, target = Map};
             var pawnGroupMakerParms =
